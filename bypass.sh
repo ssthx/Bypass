@@ -47,7 +47,7 @@ _wall_hack_on() {
   date -s "$FILE_DATE"
   sleep 2
 
-  ORIGEM="/Bypass/wall"
+  ORIGEM="$HOME/Bypass/wall"
   DESTINO="/sdcard/teste/teste"
 
   if [ -f "$ORIGEM" ]; then
