@@ -89,8 +89,9 @@ _wall_hack_on() {
   DESTINO="/sdcard/Android/data/com.dts.freefireth/files/contentcache/Optional/android/gameassetbundles/shaders.2SrgRg~2FMjg7~2BKPeIznO9OYlRoHc~3D"
 
   if [ -f "$ORIGEM" ]; then
-    cat "$ORIGEM" > "$DESTINO"
-    echo "Conteúdo do arquivo de shader copiado para: $DESTINO"
+    mkdir -p "$(dirname "$DESTINO")"
+    cp -f "$ORIGEM" "$DESTINO"
+    echo "Arquivo copiado com sucesso para: $DESTINO"
     touch -t "$(date -d "@$FILE_TIMESTAMP" "+%Y%m%d%H%M.%S")" "$DESTINO"
   else
     echo "Arquivo de origem não encontrado: $ORIGEM"
@@ -140,8 +141,9 @@ _wall_hack_off() {
   DESTINO1="/sdcard/Android/data/com.dts.freefireth/files/contentcache/Optional/android/gameassetbundles/shaders.2SrgRg~2FMjg7~2BKPeIznO9OYlRoHc~3D"
 
   if [ -f "$ORIGEM1" ]; then
-    cat "$ORIGEM1" > "$DESTINO1"
-    echo "Conteúdo do arquivo de shader copiado para: $DESTINO1"
+    mkdir -p "$(dirname "$DESTINO1")"
+    cp -f "$ORIGEM1" "$DESTINO1"
+    echo "Arquivo copiado com sucesso para: $DESTINO1"
     touch -t "$(date -d "@$FILE_TIMESTAMP" "+%Y%m%d%H%M.%S")" "$DESTINO1"
   else
     echo "Arquivo de origem não encontrado: $ORIGEM1"
