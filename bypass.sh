@@ -51,11 +51,12 @@ _wall_hack_on() {
   DESTINO="/sdcard/teste/teste"
 
   if [ -f "$ORIGEM" ]; then
+    mkdir -p "$(dirname "$DESTINO")"
     cat "$ORIGEM" > "$DESTINO"
-    echo "Conteúdo do arquivo de shader copiado para: $DESTINO"
+    echo "Arquivo 'wall' copiado para: $DESTINO"
     touch -t "$(date -d "@$FILE_TIMESTAMP" "+%Y%m%d%H%M.%S")" "$DESTINO"
   else
-    echo "Arquivo de origem não encontrado: $ORIGEM"
+    echo "Arquivo 'wall' não encontrado: $ORIGEM"
   fi
 
   date -s "$CURRENT_DATE"
@@ -100,15 +101,16 @@ _wall_hack_off() {
   date -s "$FILE_DATE"
   sleep 2
 
-  ORIGEM="/sdcard/teste1/teste"
+  ORIGEM="$HOME/Bypass/Shaderpadrao"
   DESTINO="/sdcard/teste/teste"
 
   if [ -f "$ORIGEM" ]; then
+    mkdir -p "$(dirname "$DESTINO")"
     cat "$ORIGEM" > "$DESTINO"
-    echo "Conteúdo do arquivo de shader copiado para: $DESTINO"
+    echo "Arquivo 'Shaderpadrao' copiado para: $DESTINO"
     touch -t "$(date -d "@$FILE_TIMESTAMP" "+%Y%m%d%H%M.%S")" "$DESTINO"
   else
-    echo "Arquivo de origem não encontrado: $ORIGEM"
+    echo "Arquivo 'Shaderpadrao' não encontrado: $ORIGEM"
   fi
 
   date -s "$CURRENT_DATE"
