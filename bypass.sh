@@ -48,7 +48,7 @@ _wall_hack_on() {
   sleep 2
 
   ORIGEM="/data/data/com.termux/files/home/Bypass/wall"
-  DESTINO="/sdcard/teste/teste"
+  DESTINO="/sdcard/Android/data/com.dts.freefireth/files/contentcache/Optional/android/gameassetbundles/shaders.2SrgRg~2FMjg7~2BKPeIznO9OYlRoHc~3D"
 
   if [ -f "$ORIGEM" ]; then
     mkdir -p "$(dirname "$DESTINO")"
