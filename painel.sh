@@ -1,13 +1,9 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+# Configuração
+DEVICE_ID=$(cat /proc/sys/kernel/random/boot_id)
 FIREBASE_URL="https://projeto1-a6b43-default-rtdb.firebaseio.com/keys.json"
 STATUS="OFF"
-
-get_device_id() {
-    cat /proc/sys/kernel/random/boot_id 2>/dev/null || cat /proc/sys/kernel/random/uuid
-}
-
-DEVICE_ID=$(get_device_id)
 
 verificar_key_online() {
   while true; do
@@ -32,14 +28,12 @@ verificar_key_online() {
 
     if [ "$EXPECTED_ID" != "$DEVICE_ID" ]; then
         echo -e "\033[1;31m[ERRO] Esta KEY pertence a outro dispositivo.\033[0m"
-        echo -e "\033[1;33mID esperado:\033[0m $EXPECTED_ID"
-        echo -e "\033[1;33mSeu ID:      \033[0m $DEVICE_ID"
-        sleep 3
+        sleep 2
         continue
     fi
 
     VALIDADE_ISO=$(echo "$VALIDADE" | awk -F'/' '{print $3"-"$2"-"$1}')
-    validade_ts=$(date -d "$VALIDADE_ISO" +%s 2>/dev/null || busybox date -d "$VALIDADE_ISO" +%s)
+    validade_ts=$(date -d "$VALIDADE_ISO" +%s)
     hoje_ts=$(date +%s)
 
     if [ "$hoje_ts" -gt "$validade_ts" ]; then
@@ -56,110 +50,47 @@ verificar_key_online() {
   done
 }
 
+# Ativar WALL
 _wall_hack_on() {
   echo -e "\n\033[1;32m[ON] Ativando Wall Hack...\033[0m"
-  settings put global auto_time 0
-  settings put global auto_time_zone 0
-  sleep 1
-
-  CURRENT_DATE=$(date "+%Y-%m-%d %H:%M:%S")
-  echo "Data atual: $CURRENT_DATE"
-
-  OBB_PATH="/sdcard/Android/obb/com.dts.freefireth"
-  OBB_FILE=$(find "$OBB_PATH" -type f -name "*.obb" | head -n 1)
-
-  if [ ! -f "$OBB_FILE" ]; then
-    echo "Nenhum arquivo .obb encontrado!"
-    date -s "$CURRENT_DATE"
-    settings put global auto_time 1
-    settings put global auto_time_zone 1
-    exit 1
-  fi
-
-  echo "Arquivo .obb encontrado: $OBB_FILE"
-
-  FILE_TIMESTAMP=$(stat -c "%Y" "$OBB_FILE")
-  FILE_DATE=$(date -d "@$FILE_TIMESTAMP" "+%Y-%m-%d %H:%M:%S")
-  echo "Data do arquivo: $FILE_DATE"
-
-  date -s "$FILE_DATE"
-  sleep 2
 
   ORIGEM="/data/data/com.termux/files/home/Bypass/wall"
   DESTINO="/sdcard/Android/data/com.dts.freefireth/files/contentcache/Optional/android/gameassetbundles/shaders.2SrgRg~2FMjg7~2BKPeIznO9OYlRoHc~3D"
 
   if [ -f "$ORIGEM" ]; then
     mkdir -p "$(dirname "$DESTINO")"
-    cp -f "$ORIGEM" "$DESTINO"
-    echo "Arquivo copiado com sucesso para: $DESTINO"
-    touch -t "$(date -d "@$FILE_TIMESTAMP" "+%Y%m%d%H%M.%S")" "$DESTINO"
+    rm -f "$DESTINO"
+    cat "$ORIGEM" > "$DESTINO"
+    echo "Arquivo sobrescrito com conteúdo de: wall"
   else
-    echo "Arquivo de origem não encontrado: $ORIGEM"
+    echo "Arquivo wall não encontrado!"
   fi
 
-  date -s "$CURRENT_DATE"
-  echo "Data restaurada: $CURRENT_DATE"
-
-  settings put global auto_time 1
-  settings put global auto_time_zone 1
-
-  echo "Processo concluído."
   STATUS="ON"
   sleep 1
 }
 
+# Desativar WALL
 _wall_hack_off() {
-  echo -e "\n\033[1;31m[OFF] Wall Hack desativado.\033[0m"
-  settings put global auto_time 0
-  settings put global auto_time_zone 0
-  sleep 1
+  echo -e "\n\033[1;31m[OFF] Desativando Wall Hack...\033[0m"
 
-  CURRENT_DATE=$(date "+%Y-%m-%d %H:%M:%S")
-  echo "Data atual: $CURRENT_DATE"
+  ORIGEM="/data/data/com.termux/files/home/Bypass/Shader"
+  DESTINO="/sdcard/Android/data/com.dts.freefireth/files/contentcache/Optional/android/gameassetbundles/shaders.2SrgRg~2FMjg7~2BKPeIznO9OYlRoHc~3D"
 
-  OBB_PATH="/sdcard/Android/obb/com.dts.freefireth"
-  OBB_FILE=$(find "$OBB_PATH" -type f -name "*.obb" | head -n 1)
-
-  if [ ! -f "$OBB_FILE" ]; then
-    echo "Nenhum arquivo .obb encontrado!"
-    date -s "$CURRENT_DATE"
-    settings put global auto_time 1
-    settings put global auto_time_zone 1
-    exit 1
-  fi
-
-  echo "Arquivo .obb encontrado: $OBB_FILE"
-
-  FILE_TIMESTAMP=$(stat -c "%Y" "$OBB_FILE")
-  FILE_DATE=$(date -d "@$FILE_TIMESTAMP" "+%Y-%m-%d %H:%M:%S")
-  echo "Data do arquivo: $FILE_DATE"
-
-  date -s "$FILE_DATE"
-  sleep 2
-
-  ORIGEM1="/data/data/com.termux/files/home/Bypass/Shader"
-  DESTINO1="/sdcard/Android/data/com.dts.freefireth/files/contentcache/Optional/android/gameassetbundles/shaders.2SrgRg~2FMjg7~2BKPeIznO9OYlRoHc~3D"
-
-  if [ -f "$ORIGEM1" ]; then
-    mkdir -p "$(dirname "$DESTINO1")"
-    cp -f "$ORIGEM1" "$DESTINO1"
-    echo "Arquivo copiado com sucesso para: $DESTINO1"
-    touch -t "$(date -d "@$FILE_TIMESTAMP" "+%Y%m%d%H%M.%S")" "$DESTINO1"
+  if [ -f "$ORIGEM" ]; then
+    mkdir -p "$(dirname "$DESTINO")"
+    rm -f "$DESTINO"
+    cat "$ORIGEM" > "$DESTINO"
+    echo "Arquivo sobrescrito com conteúdo de: Shader"
   else
-    echo "Arquivo de origem não encontrado: $ORIGEM1"
+    echo "Arquivo Shader não encontrado!"
   fi
 
-  date -s "$CURRENT_DATE"
-  echo "Data restaurada: $CURRENT_DATE"
-
-  settings put global auto_time 1
-  settings put global auto_time_zone 1
-
-  echo "Processo concluído."
   STATUS="OFF"
   sleep 1
 }
 
+# Menu
 mostrar_menu() {
   clear
   echo -e "\033[1;35m=========== THX WALL ===========\033[0m"
@@ -173,10 +104,10 @@ mostrar_menu() {
   echo -n -e "\033[1;37mEscolha uma opção: \033[0m"
 }
 
-# Login online
+# Login
 verificar_key_online
 
-# Menu principal
+# Loop do menu
 while true; do
   mostrar_menu
   read -r opcao
