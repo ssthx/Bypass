@@ -1,14 +1,79 @@
 cliente {
-Key:K3Y-001
-Validade:7dias
+Nome: Rafael
+Key: 7GHD-92LK-1ZKE
+Vendedor: thx
+Validade: 25/06/2025
+Datacriada: 20/05/2025
 }
 
 cliente {
-Key:K3Y-002
-Validade:2026-12-17
+Nome: Lucas
+Key: 8XPE-K12J-Z8VR
+Vendedor: thx
+Validade: 25/06/2025
+Datacriada: 20/05/2025
 }
 
 cliente {
-Key:K3Y-003
-Validade:15min
+Nome: João
+Key: M4ZD-0KVP-A2YQ
+Vendedor: thx
+Validade: 25/06/2025
+Datacriada: 20/05/2025
+}
+
+cliente {
+Nome: Pedro
+Key: Z8YL-9PJK-D3WQ
+Vendedor: thx
+Validade: 25/06/2025
+Datacriada: 20/05/2025
+}
+
+cliente {
+Nome: Mateus
+Key: WE7K-X9DL-3MCN
+Vendedor: thx
+Validade: 25/06/2025
+Datacriada: 20/05/2025
+}
+
+cliente {
+Nome: Vitor
+Key: AJQ9-KP6D-VUX2
+Vendedor: thx
+Validade: 25/06/2025
+Datacriada: 20/05/2025
+}
+
+cliente {
+Nome: Bruno
+Key: X8LZ-PW9R-4YJQ
+Vendedor: thx
+Validade: 25/06/2025
+Datacriada: 20/05/2025
+}
+
+cliente {
+Nome: Igor
+Key: G9TM-3NDL-WE5Q
+Vendedor: thx
+Validade: 25/06/2025
+Datacriada: 20/05/2025
+}
+
+cliente {
+Nome: Felipe
+Key: KQZ3-7XMV-PL2C
+Vendedor: thx
+Validade: 25/06/2025
+Datacriada: 20/05/2025
+}
+
+cliente {
+Nome: André
+Key: R2NW-8CYQ-ZV1T
+Vendedor: thx
+Validade: 25/06/2025
+Datacriada: 20/05/2025
 }
